@@ -39,11 +39,18 @@ const jobSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  
+
   skills: [
     {
       type: String,
       trim: true,
+    },
+  ],
+
+  applications: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Application",
     },
   ],
 });
