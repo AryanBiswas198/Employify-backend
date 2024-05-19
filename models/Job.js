@@ -40,12 +40,10 @@ const jobSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-  skills: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
+  skills: {
+    type:[String],
+    required: true,
+  },
 
   applications: [
     {
