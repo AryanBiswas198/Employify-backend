@@ -53,6 +53,12 @@ const jobSchema = new mongoose.Schema({
       ref: "Application",
     },
   ],
+
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Job", jobSchema);

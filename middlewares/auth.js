@@ -12,7 +12,7 @@ exports.auth = async(req, res, next) => {
                 req.body.token ||
                 req.header("Authorization").replace("Bearer ", "");
 
-        
+
         // If token missing, return response
         if(!token){
             return res.status(402).json({
@@ -20,7 +20,6 @@ exports.auth = async(req, res, next) => {
                 message: "Token is missing"
             });
         }
-
 
         // Verify Token 
         try{

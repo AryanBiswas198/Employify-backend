@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/User");
+const jobRoutes = require("./routes/Job");
 const database = require("./config/database");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 4000;
@@ -9,9 +11,11 @@ const PORT = process.env.PORT || 4000;
 database.connect();
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/job", jobRoutes);
 
 app.get("/", (req, res) => {
     return res.json({
