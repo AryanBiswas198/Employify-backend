@@ -73,6 +73,7 @@ exports.applyToJob = async (req, res) => {
 exports.getApplicationsByJob = async (req, res) => {
     try {
         const { jobId } = req.body;
+        const recruiterId = req.user.id;
 
         // Validate input
         if (!jobId) {
@@ -82,14 +83,14 @@ exports.getApplicationsByJob = async (req, res) => {
             });
         }
 
-        // Find the job to ensure it exists
-        const job = await Job.findById(jobId);
-        if (!job) {
-            return res.status(404).json({
-                success: false,
-                message: "Job not found.",
-            });
-        }
+         // Find the job to ensure it exists and it belongs to the recruiter
+         const job = await Job.findOne({ _id: jobId, recruiter: recruiterId });
+         if(!job){
+             return res.status(404).json({
+                 success: false,
+                 message: "Job not found or you do not have permission to view the applications for this job.",
+             });
+         }
 
         // Find all applications for the job
         const applications = await Application.find({ job: jobId })
