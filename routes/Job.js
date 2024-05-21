@@ -12,6 +12,16 @@ const {
     searchJobsByCategory
 } = require("../controllers/Job");
 
+
+const {
+    applyToJob,
+    getApplicationsByJob,
+    getApplicationsByUser,
+    updateApplication,
+    getApplicationDetails
+} = require("../controllers/Application");
+
+
 const {
     createCategory,
     showAllCategories,
@@ -19,7 +29,7 @@ const {
 } = require("../controllers/Category");
 
 
-// Job Routes
+// --------------------------------------- Job Routes ------------------------------------------------------------
 // Route for create Job
 router.post("/createJob", auth, isRecruiter, createJob);
 
@@ -39,7 +49,27 @@ router.get("/getJobDetails", auth, getJobDetails);
 router.get("/searchJobsByCategory", auth, searchJobsByCategory);
 
 
-// Category Routes
+
+
+// ---------------------------------------- Application Routes ----------------------------------------------------
+// Route for create Application or apply to job
+router.post("/applyToJob", auth, isCandidate, applyToJob);
+
+// Route for getting applications by job id
+router.get("/getApplicationsByJob", auth, isRecruiter, getApplicationsByJob);
+
+// Route for getting applications of a specific user
+router.get("/getApplicationsByUser", auth, isCandidate, getApplicationsByUser);
+
+// Route to update application
+router.put("/updateApplication", auth, isCandidate, updateApplication);
+
+// Route to get application details
+router.get("/getApplicationDetails", auth, getApplicationDetails);
+
+
+
+// ---------------------------------------- Category Routes -------------------------------------------------------
 // Route for createCategory
 router.post("/createCategory", auth, isRecruiter, createCategory);
 
