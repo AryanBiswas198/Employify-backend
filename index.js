@@ -3,6 +3,7 @@ const app = express();
 const userRoutes = require("./routes/User");
 const jobRoutes = require("./routes/Job");
 const profileRoutes = require("./routes/Profile");
+const tweetRoutes = require("./routes/Tweet");
 const database = require("./config/database");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/tweet", tweetRoutes);
 
 app.get("/", (req, res) => {
     return res.json({

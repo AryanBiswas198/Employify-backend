@@ -50,6 +50,14 @@ const userSchema = new mongoose.Schema({
     ref: "Profile",
   },
 
+  // For storing tweets posted by the user
+  tweets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tweet",
+    },
+  ],
+
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
