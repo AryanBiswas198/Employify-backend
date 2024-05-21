@@ -13,6 +13,13 @@ const {
 } = require("../controllers/Tweet");
 
 
+const {
+    likeTweet,
+    unlikeTweet,
+    getLikesByTweet
+} = require("../controllers/Like");
+
+
 
 // --------------------------_Routes for Tweet ------------------------------------
 // Route for createTweet
@@ -32,6 +39,20 @@ router.get("/getTweetById", auth, getTweetById);
 
 // Route to get all tweets of a specific user
 router.get("/getAllTweetsOfUser", auth, getAllTweetsOfUser);
+
+
+
+
+
+// ----------------------------Routes for Likes -------------------------------------------
+// Route for like tweet
+router.post("/likeTweet", auth, likeTweet);
+
+// Route for unlike tweet
+router.post("/unlikeTweet", auth, unlikeTweet);
+
+// Route to get likes of a tweet
+router.get("/getLikesByTweet", auth, getLikesByTweet);
 
 
 module.exports = router;
