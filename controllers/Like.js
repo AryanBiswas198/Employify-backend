@@ -1,6 +1,7 @@
 const Tweet = require("../models/Tweet");
 const User = require("../models/User");
 
+// Likes a tweet
 exports.likeTweet = async (req, res) => {
     try {
         const { tweetId } = req.body;
@@ -58,6 +59,7 @@ exports.likeTweet = async (req, res) => {
 };
 
 
+// Unlikes a tweet
 exports.unlikeTweet = async (req, res) => {
     try {
         const { tweetId } = req.body;
@@ -89,8 +91,9 @@ exports.unlikeTweet = async (req, res) => {
         }
 
         // Remove the user's ID from the likes array of the tweet
-        tweet.likes = tweet.likes.filter(id => id !== userId);
+        tweet.likes = tweet.likes.filter(id => id.toString() !== userId);
         await tweet.save();
+
 
         // Update the user's likes array
         const user = await User.findByIdAndUpdate(
@@ -104,7 +107,8 @@ exports.unlikeTweet = async (req, res) => {
             message: "Tweet unliked successfully.",
             data: user,
         });
-    } catch (err) {
+    } 
+    catch (err) {
         console.error("Error unliking tweet:", err);
         return res.status(500).json({
             success: false,
@@ -114,6 +118,7 @@ exports.unlikeTweet = async (req, res) => {
 };
 
 
+// Get likes of a tweet by its id
 exports.getLikesByTweet = async (req, res) => {
     try {
         const { tweetId } = req.body;
@@ -126,8 +131,9 @@ exports.getLikesByTweet = async (req, res) => {
             });
         }
 
-        // Find the tweet
-        const tweet = await Tweet.findById(tweetId);
+        // Find the tweet and populate the likes array to get user details
+        const tweet = await Tweet.findById(tweetId).populate("likes", "username email firstName lastName");
+
         if (!tweet) {
             return res.status(404).json({
                 success: false,
@@ -135,15 +141,13 @@ exports.getLikesByTweet = async (req, res) => {
             });
         }
 
-        // Populate the likes array in the tweet model to get user details
-        await tweet.populate("likes", "username email firstName lastName").execPopulate();
-
         return res.status(200).json({
             success: true,
             message: "Likes retrieved successfully.",
             data: tweet.likes,
         });
-    } catch (err) {
+    } 
+    catch (err) {
         console.error("Error fetching likes by tweet:", err);
         return res.status(500).json({
             success: false,
