@@ -7,6 +7,11 @@ const {
     login,
 } = require("../controllers/Auth");
 
+const {
+    resetPasswordToken,
+    resetPassword
+} = require("../controllers/ResetPassword");
+
 
 const {auth} = require("../middlewares/auth");
 
@@ -20,6 +25,14 @@ router.post("/signup", signup);
 
 // Route for Login
 router.post("/login", login);
+
+
+
+// Route for generating a reset password token
+router.post("/reset-password-token", resetPasswordToken)
+
+// Route for resetting user's password after verification
+router.post("/reset-password", resetPassword)
 
 
 
