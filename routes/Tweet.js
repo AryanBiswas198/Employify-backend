@@ -20,6 +20,14 @@ const {
 } = require("../controllers/Like");
 
 
+const {
+    addComment,
+    updateComment,
+    deleteComment,
+    getCommentsByTweet
+} = require("../controllers/Comment");
+
+
 
 // --------------------------_Routes for Tweet ------------------------------------
 // Route for createTweet
@@ -42,9 +50,7 @@ router.get("/getAllTweetsOfUser", auth, getAllTweetsOfUser);
 
 
 
-
-
-// ----------------------------Routes for Likes -------------------------------------------
+// ----------------------------Routes for Likes ---------------------------------------------
 // Route for like tweet
 router.post("/likeTweet", auth, likeTweet);
 
@@ -53,6 +59,24 @@ router.post("/unlikeTweet", auth, unlikeTweet);
 
 // Route to get likes of a tweet
 router.get("/getLikesByTweet", auth, getLikesByTweet);
+
+
+
+
+
+// ----------------------------Routes for Comments -------------------------------------------
+// Route to add comment
+router.post("/addComment", auth, addComment);
+
+// Route to update comment
+router.put("/updateComment", auth, updateComment);
+
+// Route to delete comment
+router.delete("/deleteComment", auth, deleteComment);
+
+// Route to get all comments of a tweet
+router.get("/getCommentsByTweet", auth, getCommentsByTweet);
+
 
 
 module.exports = router;
